@@ -51,7 +51,7 @@ tpSolape maxSolFBruta(double inters[N][2], int n){
 
 
 }
-/*
+
 // Crea un vector de tpInter con los n primeros intervalos de inters.
 // Por ejemplo para la matrix inters de la funcion anterior y n=5, los
 // valores de indinters seran:
@@ -60,8 +60,16 @@ tpSolape maxSolFBruta(double inters[N][2], int n){
 //  {ind: 2, ini: 2.0, fin: 4.0},
 //  {ind: 3, ini: 1.0, fin: 6.0},
 //  {ind: 4, ini: 3.5, fin: 7.0}]
-void crearvind(double inters[N][2], tpInter indinters[N], int n);
+void crearvind(double inters[N][2], tpInter indinters[N], int n){
+	for(int i = 0; i<n; i++){
+		indinters[i].ini=inters[i][0];
+		indinters[i].fin=inters[i][1];
+		indinters[i].ind=i;
+	}
 
+}
+
+/*
 // Ordena con el algoritmo mergesort los intervalos de indinters
 // comprendidos entre las componentes indexadas por p y f, ambas incluidas,
 // de acuerdo al valor de inicio de los intervalos (orden creciente).
@@ -72,7 +80,15 @@ void crearvind(double inters[N][2], tpInter indinters[N], int n);
 //  {ind: 0, ini: 1.5, fin: 8.0},
 //  {ind: 2, ini: 2.0, fin: 4.0},
 //  {ind: 4, ini: 3.5, fin: 7.0}]
-void mergesortIndInters(tpInter indinters[N], int p, int f);
+void mergesortIndInters(tpInter indinters[N], int p, int f){
+
+	if(p<f){
+		int medio = (p+f)/2;
+		mergesortIndInters(indinters,p,medio);
+		mergesortIndInters(indinters, medio+1, f);
+		merge(indinters, p, medio, f);
+	}
+}
 
 // Dado un vector indinters, utiliza la tecnica de Divide y Venceras para
 // devolver el maximo solape entre parejas de intervalos comprendidos
