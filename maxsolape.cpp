@@ -1,5 +1,6 @@
 #include <iostream>
 #include "maxsolape.hpp"
+using namespace std;
 // Cada fila de inters representa un intervalo. La primera columna
 // es el inicio del intervalo, y la segunda el final. Por ejemplo:
 //    double inters[N][2] = {
@@ -68,8 +69,53 @@ void crearvind(double inters[N][2], tpInter indinters[N], int n){
 	}
 
 }
+void merge(tpInter indinters[N], int p, int medio, int f){
+	tpInter aux[N];
+	for(int x=0; x<N ; x++){
+		aux[x].ind=indinters[x].ind;
+		aux[x].ini=indinters[x].ini;
+		aux[x].fin=indinters[x].fin;
+	}
+	int h=p,i=p,j=medio+1;
+	while(h<=medio&&j<=f){
+		if(indinters[h].ini<=indinters[j].ini){ 
+			aux[i].ind=indinters[h].ind;
+			aux[i].ini=indinters[h].ini;
+			aux[i].fin=indinters[h].fin;
+			h=h+1;
+		}else{ 
+			aux[i].ind=indinters[j].ind;
+			aux[i].ini=indinters[j].ini;
+			aux[i].fin=indinters[j].fin;
+			j=j+1;
+		} 
+		i=i+1; 
+	}
+	if(h>medio){
+		for(int k=j;k<=f;k++){
+			aux[i].ind=indinters[k].ind;
+			aux[i].ini=indinters[k].ini;
+			aux[i].fin=indinters[k].fin;
+			i=i+1;
+		} 
+	}else{
+		for(int k=h;k<=medio;k++){
+			aux[i].ind=indinters[k].ind;
+			aux[i].ini=indinters[k].ini;
+			aux[i].fin=indinters[k].fin;
+			i=i+1;
+		} 
+	}
 
-/*
+	for(int k=p;k<=f;k++){ 
+			indinters[k].ind=aux[k].ind;
+			indinters[k].ini=aux[k].ini;
+			indinters[k].fin=aux[k].fin;
+	}
+
+}
+
+
 // Ordena con el algoritmo mergesort los intervalos de indinters
 // comprendidos entre las componentes indexadas por p y f, ambas incluidas,
 // de acuerdo al valor de inicio de los intervalos (orden creciente).
@@ -81,7 +127,6 @@ void crearvind(double inters[N][2], tpInter indinters[N], int n){
 //  {ind: 2, ini: 2.0, fin: 4.0},
 //  {ind: 4, ini: 3.5, fin: 7.0}]
 void mergesortIndInters(tpInter indinters[N], int p, int f){
-
 	if(p<f){
 		int medio = (p+f)/2;
 		mergesortIndInters(indinters,p,medio);
@@ -96,4 +141,3 @@ void mergesortIndInters(tpInter indinters[N], int p, int f){
 // Por ejemplo, para el vector del procedimiento anterior,
 // el resultado es solape=4.5, interA=0, interB=3
 tpSolape maxSolDyV(tpInter indinters[N], int p, int f);
-*/

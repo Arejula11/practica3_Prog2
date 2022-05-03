@@ -18,6 +18,15 @@ void probarInt(double inters[N][2], tpInter indinters[N], int n){
 	}
 
 }
+void pruebaMergesortIndInters(tpInter indinters[N], int n){
+	int p=0;
+	int f=4;
+	mergesortIndInters(indinters, p,f);
+	for(int i=0; i<n; i++){
+		cout << indinters[i].ind << ": " << indinters[i].ini << " - " << indinters[i].fin << endl;
+	}
+	
+}
 int main(){
 	double inters[N][2] = {
         	{1.5, 8.0},
@@ -37,8 +46,14 @@ double inters2[N][2] = {
 	probarMax(inters,inters2);
 	cout<<"PROBAR CREARINT"<<endl;
 	tpInter inditerns[N];
-	probarInt(inters, inditerns,3);
+	probarInt(inters, inditerns,5);
 	cout<<endl;
-	probarInt(inters2, inditerns,4);
+	tpInter inditerns2[N];
+	probarInt(inters2, inditerns2,4);
+	cout<<endl;
+
+	cout<<"PROBAR MERGESORT"<<endl;
+	pruebaMergesortIndInters(inditerns,5);
+	
 	return 0;
 }

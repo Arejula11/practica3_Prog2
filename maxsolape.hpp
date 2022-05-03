@@ -1,4 +1,4 @@
-const int N = 100000;       // Maximo numero de intervalos
+const int N = 10000;       // Maximo numero de intervalos
 const double minini = 0;    // Minimo valor de inicio para los intervalos
 const double maxfin = 100;  // Maximo valor de fin para los intervalos
 
