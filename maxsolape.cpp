@@ -135,9 +135,55 @@ void mergesortIndInters(tpInter indinters[N], int p, int f){
 	}
 }
 
+void  maxFin(tpInter indinters[N], int f){
+
+
+}
+void auxMax(tpInter indinters[N], int p, int f){
+	tpSolape max;
+	tpSolape aux;
+	int refuno=maxFin(indinters, f);
+	max.solape=indinters[refuno].fin-indinters[p].ini;
+	max.interA=indinters[refuno].ind;
+	max.interB=indinters[p].ind;
+	for(int i=p+1; i<=f; i++){
+		aux.solape=indinters[refuno].fin-indinters[i].ini;
+		if(aux.solape>max.solape){
+			max.solape=aux.solape;
+			max.interA=indinters[refuno].ind;
+			max.interB=indinters[i].ind;
+		
+		}
+	}
+	return max;
+}
+
+
+
+
 // Dado un vector indinters, utiliza la tecnica de Divide y Venceras para
 // devolver el maximo solape entre parejas de intervalos comprendidos
 // entre las componentes indexadas por p y f, ambas incluidas.
 // Por ejemplo, para el vector del procedimiento anterior,
 // el resultado es solape=4.5, interA=0, interB=3
-tpSolape maxSolDyV(tpInter indinters[N], int p, int f);
+tpSolape maxSolDyV(tpInter indinters[N], int p, int f){
+	tpSolape devol;
+	
+	if (p==f)
+	{	
+		devol.interA =  indinters[f].ini;
+		devol.interB =  indinters[f].fin;
+		devol.solape = 0;
+		return devol;
+	}else{
+		int mitad = (p+f)/2;
+		maxSolDyV(indinters,p,mitad);
+		maxSolDyV(indinters,mitad+1,f);
+		auxMax();
+
+
+	}
+	
+	
+
+}

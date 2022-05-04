@@ -18,9 +18,8 @@ void probarInt(double inters[N][2], tpInter indinters[N], int n){
 	}
 
 }
-void pruebaMergesortIndInters(tpInter indinters[N], int n){
-	int p=0;
-	int f=4;
+void pruebaMergesortIndInters(tpInter indinters[N],int p, int f, int n){
+	
 	mergesortIndInters(indinters, p,f);
 	for(int i=0; i<n; i++){
 		cout << indinters[i].ind << ": " << indinters[i].ini << " - " << indinters[i].fin << endl;
@@ -53,7 +52,9 @@ double inters2[N][2] = {
 	cout<<endl;
 
 	cout<<"PROBAR MERGESORT"<<endl;
-	pruebaMergesortIndInters(inditerns,5);
+	pruebaMergesortIndInters(inditerns,0,4,5);
+	cout<<endl;
+	pruebaMergesortIndInters(inditerns2,0,3,4);
 	
 	return 0;
 }
