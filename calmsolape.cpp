@@ -26,6 +26,11 @@ void pruebaMergesortIndInters(tpInter indinters[N],int p, int f, int n){
 	}
 	
 }
+void pruebaMaxSolDyV(tpInter indinters[N], int n, int p, int f){
+	cout << "solape=" << maxSolDyV(indinters, p, f).solape << ", interA=" << maxSolDyV(indinters, p, f).interA << ", interB=" << maxSolDyV(indinters, p, f).interB << endl;
+
+}
+
 int main(){
 	double inters[N][2] = {
         	{1.5, 8.0},
@@ -55,6 +60,7 @@ double inters2[N][2] = {
 	pruebaMergesortIndInters(inditerns,0,4,5);
 	cout<<endl;
 	pruebaMergesortIndInters(inditerns2,0,3,4);
-	
+	int n = 5;
+	pruebaMaxSolDyV(inditerns, n, 0, n-1);
 	return 0;
 }

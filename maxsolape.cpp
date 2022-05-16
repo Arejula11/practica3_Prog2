@@ -135,30 +135,44 @@ void mergesortIndInters(tpInter indinters[N], int p, int f){
 	}
 }
 
-void  maxFin(tpInter indinters[N], int f){
 
+int  maxFin(tpInter indinters[N], int f){
+	int j=0;
+	for(int i=1; i<f; i++){
+		if(indinters[i].fin>indinters[j].fin){
+			j=i;
+		}
+	}
+	return j;
 
 }
-void auxMax(tpInter indinters[N], int p, int f){
+
+tpSolape calMaxSolape(tpInter indinters[N], int p, int f, int maxfin){
 	tpSolape max;
 	tpSolape aux;
-	int refuno=maxFin(indinters, f);
-	max.solape=indinters[refuno].fin-indinters[p].ini;
-	max.interA=indinters[refuno].ind;
-	max.interB=indinters[p].ind;
-	for(int i=p+1; i<=f; i++){
+	int refuno=maxfin;
+	if(indinters[p].fin>indinters[refuno].fin){
+		max.solape=indinters[refuno].fin-indinters[p].ini;
+	}else{
+		max.solape=indinters[p].fin-indinters[p].ini;
+	}
+		max.interA=indinters[refuno].ind;
+		max.interB=indinters[p].ind;
+	for(int i=p; i<=f; i++){
+		if(indinters[i].fin>indinters[refuno].fin){
 		aux.solape=indinters[refuno].fin-indinters[i].ini;
+		}else{
+		aux.solape=indinters[i].fin-indinters[i].ini;
+		}
 		if(aux.solape>max.solape){
 			max.solape=aux.solape;
-			max.interA=indinters[refuno].ind;
-			max.interB=indinters[i].ind;
+			max.interA=indinters[i].ind;
+			max.interB=indinters[refuno].ind;
 		
 		}
 	}
 	return max;
 }
-
-
 
 
 // Dado un vector indinters, utiliza la tecnica de Divide y Venceras para
@@ -167,23 +181,17 @@ void auxMax(tpInter indinters[N], int p, int f){
 // Por ejemplo, para el vector del procedimiento anterior,
 // el resultado es solape=4.5, interA=0, interB=3
 tpSolape maxSolDyV(tpInter indinters[N], int p, int f){
-	tpSolape devol;
-	
-	if (p==f)
-	{	
-		devol.interA =  indinters[f].ini;
-		devol.interB =  indinters[f].fin;
-		devol.solape = 0;
-		return devol;
-	}else{
-		int mitad = (p+f)/2;
-		maxSolDyV(indinters,p,mitad);
-		maxSolDyV(indinters,mitad+1,f);
-		auxMax();
-
-
+	tpSolape maxsolape;
+	if(f==p){
+		maxsolape.interA=indinters[p].ini;
+		maxsolape.interB=indinters[p].fin;
+		maxsolape.solape=0.0;
+		return maxsolape;
 	}
-	
-	
-
+	else{
+		int medio=(p+f)/2;
+		return calMaxSolape(indinters, medio, f, maxFin(indinters, medio));
+		
+	}
+		
 }
